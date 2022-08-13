@@ -17,7 +17,7 @@ const ApplicationNavigator = () => {
   return (
     <SafeAreaView>
       <NavigationContainer ref={navigationRef}>
-        <StatusBar barStyle={'dark-content'} />
+        <StatusBar backgroundColor={white} barStyle={'dark-content'} />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Startup" component={StartupPage} />
           <Stack.Screen name="Main" component={MainNavigator} />
