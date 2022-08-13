@@ -11,10 +11,10 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-
+import movies from './movies'
 import config from './configuration'
 
-const reducers = combineReducers({ config })
+const reducers = combineReducers({ movies, config })
 
 export type RootState = ReturnType<typeof reducers>
 export type AppDispatch = typeof store.dispatch
