@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import * as resources from './resources'
 
+type DefaultLocale = typeof resources.en
 export type TxKeyPath = RecursiveKeyOf<DefaultLocale>
 
 type RecursiveKeyOf<TObj extends Record<string, any>> = {
