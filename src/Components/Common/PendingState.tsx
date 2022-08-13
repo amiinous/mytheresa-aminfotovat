@@ -18,8 +18,8 @@ const PendingState = ({ backgroundColor }: PendingStateProps) => {
 
 const Container = styled.View<{ backgroundColor: string }>`
   flex: 1;
-  justify-content: 'center';
-  align-items: 'center';
+  justify-content: center;
+  align-items: center;
   background-color: ${props =>
     props.backgroundColor ? props.backgroundColor : white};
 `

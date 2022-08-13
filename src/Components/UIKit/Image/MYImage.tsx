@@ -12,7 +12,7 @@ const MYImage = (props: Props) => {
   const onLoad = useCallback(() => setStatus(false), [])
   return (
     <Fragment>
-      {shouldShowPlaceHolder ? <Placeholder /> : null}
+      {shouldShowPlaceHolder ? <Placeholder style={props.style} /> : null}
       <Image onLoad={onLoad} {...props} />
     </Fragment>
   )

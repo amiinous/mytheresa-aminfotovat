@@ -4,10 +4,8 @@ import { ColorValue, StyleProp } from 'react-native'
 import { presets, TextPresets } from './MYText.presets'
 import type { TextStyle } from 'react-native'
 import type { TxKeyPath } from '@/i18n/'
-import Variables from '@/Theme/Variables'
 import styled from 'styled-components/native'
 
-const colors = Variables.Colors
 interface Props {
   style?: StyleProp<TextStyle>
   /**
@@ -53,7 +51,8 @@ export default function DKText(props: Props) {
     content = content?.substring(0, limitLength) + '...'
 
   let styles: StyleProp<TextStyle> = [presets[preset]]
-  if (colors) styles = [presets[preset], { color }]
+
+  if (color) styles = [presets[preset], { color }]
   styles = [...styles, styleOverride]
 
   return (

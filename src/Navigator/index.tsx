@@ -7,6 +7,7 @@ import { navigationRef } from './utils'
 import Variables from '@/Theme/Variables'
 import StartupPage from '@/Screens/StartupPage'
 import MainNavigator from './MainNavigator'
+import Toast from '@/Components/Toast/Toast'
 
 const { white } = Variables.Colors
 
@@ -21,6 +22,7 @@ const ApplicationNavigator = () => {
           <Stack.Screen name="Startup" component={StartupPage} />
           <Stack.Screen name="Main" component={MainNavigator} />
         </Stack.Navigator>
+        <Toast />
       </NavigationContainer>
     </SafeAreaView>
   )

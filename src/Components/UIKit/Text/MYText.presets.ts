@@ -18,7 +18,7 @@ const _presets = {
   },
   heading: {
     ...BASE,
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '800',
   },
   hugeTitle: {

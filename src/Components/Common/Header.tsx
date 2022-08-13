@@ -1,5 +1,4 @@
 import React from 'react'
-import { ViewStyle, StyleSheet, View } from 'react-native'
 import styled from 'styled-components/native'
 import { TxKeyPath } from '@/i18n'
 import MYText from '@/Components/UIKit/Text/MYText'
@@ -31,27 +30,25 @@ export default function Header(props: Props) {
   return (
     <Container>
       {title || titleTx ? (
-        <View style={styles.titleContainer}>
+        <TitleContainer>
           <MYText text={title} tx={titleTx} preset={'hugeTitle'} />
-        </View>
+        </TitleContainer>
       ) : null}
 
       {onRightIconPress && rightIcon ? (
-        <Icon
+        <RightIcon
           name={rightIcon}
           onPress={onRightIconPress}
           size={24}
           color={white}
-          style={styles.rightIcon}
         />
       ) : null}
       {onLeftIconPress && leftIcon ? (
-        <Icon
+        <LeftIcon
           name={leftIcon}
           onPress={onLeftIconPress}
           size={30}
           color={white}
-          style={styles.leftIcon}
         />
       ) : null}
     </Container>
@@ -68,17 +65,16 @@ const Container = styled.View`
   border-bottom-color: ${lightGray};
 `
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  leftIcon: {
-    position: 'absolute',
-    left: 8,
-  },
-  rightIcon: {
-    position: 'absolute',
-    right: 8,
-  },
-})
+const TitleContainer = styled.View`
+  flex: 1;
+  align-items: center;
+`
+
+const RightIcon = styled(Icon)`
+  position: absolute;
+  right: 8;
+`
+const LeftIcon = styled(Icon)`
+  position: absolute;
+  left: 8;
+`
