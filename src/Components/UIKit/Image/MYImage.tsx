@@ -19,7 +19,7 @@ const MYImage = (props: Props) => {
 }
 
 const Placeholder = styled.View`
-  position: 'absolute';
+  position: absolute;
   left: 0;
   right: 0;
   top: 0;

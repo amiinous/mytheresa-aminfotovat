@@ -22,18 +22,7 @@ export function navigate(name: keyof RootStackParamList, params: any) {
   }
 }
 
-export function navigateAndReset(routes = [], index = 0) {
-  if (navigationRef.isReady()) {
-    navigationRef.dispatch(
-      CommonActions.reset({
-        index,
-        routes,
-      }),
-    )
-  }
-}
-
-export function navigateAndSimpleReset(name: string, index = 0) {
+export function navigateAndReset(name: string, index = 0) {
   if (navigationRef.isReady()) {
     navigationRef.dispatch(
       CommonActions.reset({

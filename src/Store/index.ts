@@ -12,7 +12,12 @@ import {
   REGISTER,
 } from 'redux-persist'
 
-const reducers = combineReducers({})
+import config from './configuration'
+
+const reducers = combineReducers({ config })
+
+export type RootState = ReturnType<typeof reducers>
+export type AppDispatch = typeof store.dispatch
 
 const persistConfig = {
   key: 'root',
