@@ -8,7 +8,9 @@ const { dark } = Variables.Colors
 interface Props extends ImageProps {}
 
 const MYImage = (props: Props) => {
-  const [shouldShowPlaceHolder, setStatus] = useState(true)
+  const [shouldShowPlaceHolder, setStatus] = useState(
+    typeof props.source === 'number' ? false : true,
+  )
   const onLoad = useCallback(() => setStatus(false), [])
   return (
     <Fragment>
