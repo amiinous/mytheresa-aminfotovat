@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
-import { Animated, Dimensions, StyleSheet } from 'react-native'
-import ELText from '@/Components/UIKit/Text/ELText'
+import { Animated, Dimensions } from 'react-native'
+import styled from 'styled-components/native'
+import MYText from '@/Components/UIKit/Text/MYText'
 import ToastService from './ToastService'
 import { WithTranslation, withTranslation } from 'react-i18next'
 import Variables from '@/Theme/Variables'
@@ -98,37 +99,36 @@ class Toast extends PureComponent<Props, State> {
     const { content, bottom } = this.state.toast
     const { t } = this.props
     return (
-      <Animated.View
-        style={[
-          styles.container,
-          {
-            bottom,
-            opacity: this.opacity,
-          },
-        ]}
+      <Container
+        style={{
+          bottom,
+          opacity: this.opacity,
+        }}
       >
-        <ELText
+        <ErrorText
           text={content ? content : t('defaultToastMessage')}
           color={white}
-          style={{ flex: 1, lineHeight: 24 }}
         />
-      </Animated.View>
+      </Container>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-    backgroundColor: caution,
-    borderRadius: 8,
-    padding: 16,
-    position: 'absolute',
-    width: SCREEN_WIDTH - 40,
-    zIndex: 110,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-})
-
 export default withTranslation('translation')(Toast)
+
+const Container = styled(Animated.View)`
+  margin-horizontal: 20px;
+  background-color: ${caution};
+  border-radius: 8px;
+  padding: 16px;
+  position: absolute;
+  width: ${SCREEN_WIDTH - 40}px;
+  z-index: 110;
+  flex-direction: row;
+  align-items: center;
+`
+
+const ErrorText = styled(MYText)`
+  flex: 1;
+  line-height: 24px;
+`
