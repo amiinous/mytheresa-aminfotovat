@@ -6,13 +6,14 @@ class ToastService {
 
   constructor() {}
 
-  showToast({ bottom = 16, content, duration = 3000 }: ToastObject) {
+  showToast({ bottom = 16, content, duration = 3000, contentTx }: ToastObject) {
     Keyboard.dismiss()
     this._listener &&
       this._listener({
         bottom,
         content,
         duration,
+        contentTx,
       })
   }
 

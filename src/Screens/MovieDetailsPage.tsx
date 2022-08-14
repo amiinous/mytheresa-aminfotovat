@@ -16,6 +16,7 @@ import {
 } from '@/Store/movies'
 import { IconKeys } from '@/Components/Common/Icon'
 import { TxKeyPath } from '@/i18n'
+import ToastService from '@/Components/Toast/ToastService'
 
 const { MARGINS } = Variables
 
@@ -59,8 +60,15 @@ const MovieDetailsPage = () => {
   const onHeaderBackPress = useCallback(() => navigation.goBack(), [])
 
   const onWishlistPress = useCallback(() => {
-    if (isAddedToWishlist) dispatch(removeFromWishlist(movie.id))
-    else dispatch(addToWishlist(movie))
+    if (isAddedToWishlist) {
+      ToastService.showToast({ contentTx: 'movieDetails.removedFromWishlist' })
+      dispatch(removeFromWishlist(movie.id))
+    } else {
+      ToastService.showToast({
+        contentTx: 'movieDetails.successfullyAddedToWishlist',
+      })
+      dispatch(addToWishlist(movie))
+    }
 
     setIsAddedToWishlist(!isAddedToWishlist)
   }, [isAddedToWishlist])
