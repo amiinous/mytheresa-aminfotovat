@@ -7,6 +7,7 @@ import Variables from '@/Theme/Variables'
 import { useAppDispatch } from '@/Store/hooks'
 import { getConfig } from '@/Store/configuration'
 import { navigateAndReset } from '@/Navigator/utils'
+import Button from '@/Components/UIKit/Button'
 
 const { white } = Variables.Colors
 
@@ -15,6 +16,7 @@ const StartupPage = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   const getData = async () => {
+    setIsLoading(true)
     dispatch(getConfig())
       .unwrap()
       .then(() => {
@@ -24,13 +26,19 @@ const StartupPage = () => {
         setIsLoading(false)
       })
   }
+
   useEffect(() => {
     getData()
-  })
+  }, [])
+
   return (
     <Container>
       <LogoImage source={Logo_image} resizeMode="contain" />
-      {isLoading ? <MYActivityIndicator /> : null}
+      {isLoading ? (
+        <MYActivityIndicator />
+      ) : (
+        <Button onPress={() => getData()} tx="tryAgain" />
+      )}
     </Container>
   )
 }
@@ -45,6 +53,6 @@ const Container = styled.View`
 `
 
 const LogoImage = styled(MYImage)`
-  margin-bottom: 32px;
   width: 250px;
+  height: 100px;
 `

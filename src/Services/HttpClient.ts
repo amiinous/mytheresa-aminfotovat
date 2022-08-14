@@ -1,10 +1,6 @@
 import axios from 'axios'
 import handleError from '@/Services/HandleError'
 import { Config } from '@/Config'
-import { setupCache, buildMemoryStorage } from 'axios-cache-interceptor'
-const storage = buildMemoryStorage()
-
-const CACHE_TTL = 1000 * 1 * 1
 const TIMEOUT = 3000
 
 function addApiKeytoUrl(url: string, apiKey: string) {
@@ -33,4 +29,4 @@ instance.interceptors.response.use(
   },
 )
 
-export default setupCache(instance, { ttl: CACHE_TTL, storage })
+export default instance
