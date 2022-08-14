@@ -31,7 +31,12 @@ export default function Header(props: Props) {
     <Container>
       {title || titleTx ? (
         <TitleContainer>
-          <MYText text={title} tx={titleTx} preset={'hugeTitle'} />
+          <MYText
+            text={title}
+            tx={titleTx}
+            limitLength={24}
+            preset={'hugeTitle'}
+          />
         </TitleContainer>
       ) : null}
 
