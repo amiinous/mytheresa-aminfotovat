@@ -1,26 +1,25 @@
 import styled from 'styled-components/native'
 import React, { useCallback } from 'react'
 import MYImage from '@/Components/UIKit/Image/MYImage'
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
 import Variables from '@/Theme/Variables'
 import MYTouchableOpacity from '@/Components/UIKit/MYTouchableOpacity'
 import { navigate } from '@/Navigator/utils'
-const { MARGINS } = Variables
-const { dark } = Variables.Colors
 
-const SCREEN_WIDTH = Dimensions.get('screen').width
-const INTER_CARD_MARGIN = 16
-const CARD_WIDTH =
-  (SCREEN_WIDTH - 2 * MARGINS.HORIZONTAL - 2 * INTER_CARD_MARGIN) / 2.5
+const { dark } = Variables.Colors
 
 interface Props {
   movie: Movie
+  /**
+   * The width style is the least required key.
+   */
+  style?: StyleProp<ViewStyle>
 }
 
-const MovieTile = ({ movie }: Props) => {
+const MovieTile = ({ movie, style }: Props) => {
   const onPress = useCallback(() => navigate('MovieDetails', { movie }), [])
   return (
-    <Container onPress={onPress} style={styles.cardShadow}>
+    <Container onPress={onPress} style={[styles.cardShadow, style]}>
       <PosterImage source={{ uri: movie?.poster_path }} />
     </Container>
   )
@@ -33,9 +32,7 @@ export default React.memo(
 
 const Container = styled(MYTouchableOpacity)`
   border-radius: 8px;
-  width: ${CARD_WIDTH}px;
   aspect-ratio: 0.5;
-  margin-right: ${INTER_CARD_MARGIN}px;
   elevation: 10;
   shadow-color: ${dark};
 `

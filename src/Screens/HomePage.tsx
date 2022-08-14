@@ -11,9 +11,11 @@ import {
 } from '@/Store/movies'
 import { HOMEPAGE_GENRES } from '@/Config'
 import MoviesRow from '@/Components/MoviesRow'
+import { useNavigation } from '@react-navigation/native'
 
 const HomePage = () => {
   const dispatch = useAppDispatch()
+  const navigation = useNavigation()
   const getData = useCallback(
     () => dispatch(getMoviesByGenres(HOMEPAGE_GENRES)),
     [],
@@ -24,8 +26,16 @@ const HomePage = () => {
     getData()
   }, [])
 
+  const onWishlistPress = useCallback(() => navigation.navigate('Wishlist'), [])
+
   return (
-    <ScreenContainer status={status} titleTx="home.title">
+    <ScreenContainer
+      status={status}
+      retry={getData}
+      titleTx="home.title"
+      rightIcon="bookmarkOutline"
+      onRightIconPress={onWishlistPress}
+    >
       <MoviesScrollView>
         {Object.keys(movies).map(genre => {
           return <MoviesRow key={genre} title={genre} movies={movies[genre]} />

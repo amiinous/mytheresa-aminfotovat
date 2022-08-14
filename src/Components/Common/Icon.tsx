@@ -7,6 +7,7 @@ import back_image from '@/Assets/Images/back.png'
 import oops_image from '@/Assets/Images/oops.png'
 import bookmark_filled_image from '@/Assets/Images/bookmark_filled.png'
 import bookmark_outline_image from '@/Assets/Images/bookmark_outline.png'
+import empty_wishlist_image from '@/Assets/Images/empty_wishlist.png'
 
 import Variables from '@/Theme/Variables'
 
@@ -43,6 +44,7 @@ const iconMap = {
   oops: oops_image,
   bookmarkFilled: bookmark_filled_image,
   bookmarkOutline: bookmark_outline_image,
+  emptyWishlist: empty_wishlist_image,
 }
 
 export type IconKeys = keyof typeof iconMap

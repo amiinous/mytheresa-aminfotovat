@@ -1,4 +1,5 @@
 export default {
+  tryAgain: 'Try Again',
   home: {
     title: 'MYTHERESA MOVIES',
   },
@@ -8,5 +9,8 @@ export default {
     rate: 'Rate:',
     addWishList: 'Wishlist',
     addedToWishlist: 'Added!',
+  },
+  wishlist: {
+    title: 'Wishlist',
   },
 }

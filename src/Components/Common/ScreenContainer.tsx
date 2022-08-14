@@ -19,6 +19,7 @@ interface Props extends ViewProps {
   rightIcon?: IconKeys
   status?: NetworkStatus
   showDisplayMode?: boolean
+  retry?: () => void
 }
 
 const ScreenContainer = ({
@@ -30,6 +31,7 @@ const ScreenContainer = ({
   status = 'fulfilled',
   onRightIconPress,
   rightIcon,
+  retry,
 }: Props) => {
   let content
   switch (status) {
@@ -37,7 +39,7 @@ const ScreenContainer = ({
       content = <PendingState />
       break
     case 'error':
-      content = <ErrorState />
+      content = <ErrorState retry={retry} />
       break
     default:
       content = children

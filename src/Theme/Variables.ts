@@ -8,6 +8,7 @@ const Colors = {
 const MARGINS = {
   HORIZONTAL: 20,
   VERTICAL: 20,
+  INTER_ITEM_MARGIN: 16,
 }
 
 export default {

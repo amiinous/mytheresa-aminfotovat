@@ -14,21 +14,21 @@ import {
 import movies from './movies'
 import config from './configuration'
 
-const reducers = combineReducers({ movies, config })
-
 export type RootState = ReturnType<typeof reducers>
 export type AppDispatch = typeof store.dispatch
 
 const persistConfig = {
-  key: 'root',
+  key: 'movies',
   storage: AsyncStorage,
-  whitelist: [''],
+  whitelist: ['wishlist'],
 }
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const persistedMovies = persistReducer(persistConfig, movies)
+
+const reducers = combineReducers({ movies: persistedMovies, config })
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: reducers,
   middleware: getDefaultMiddleware => {
     const middlewares = getDefaultMiddleware({
       serializableCheck: {

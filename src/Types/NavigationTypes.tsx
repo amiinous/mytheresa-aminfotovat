@@ -11,6 +11,7 @@ export type MovieDetailsParams = {
 export type RootStackParamList = {
   Home: undefined
   MovieDetails: MovieDetailsParams
+  Wishlist: undefined
 }
 
 export type AppScreenNames = keyof RootStackParamList
