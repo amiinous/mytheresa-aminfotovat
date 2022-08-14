@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 import ScreenContainer from '@/Components/Common/ScreenContainer'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
@@ -8,15 +8,38 @@ import MYImage from '@/Components/UIKit/Image/MYImage'
 import Variables from '@/Theme/Variables'
 import KeyValueRow from '@/Components/Common/KeyValueRow'
 import Button from '@/Components/UIKit/Button'
+import { useAppDispatch, useAppSelector } from '@/Store/hooks'
+import {
+  addToWishlist,
+  removeFromWishlist,
+  selectWishlist,
+} from '@/Store/movies'
+import { IconKeys } from '@/Components/Common/Icon'
+import { TxKeyPath } from '@/i18n'
 
 const { MARGINS } = Variables
+
+function wishListButtonProps(isAddedToWishList: boolean): {
+  icon: IconKeys
+  tx: TxKeyPath
+} {
+  return isAddedToWishList
+    ? {
+        icon: 'bookmarkFilled',
+        tx: 'movieDetails.addedToWishlist',
+      }
+    : {
+        icon: 'bookmarkOutline',
+        tx: 'movieDetails.addWishList',
+      }
+}
 
 const MovieDetailsPage = () => {
   const {
     params: { movie },
   } = useRoute<RouteProp<{ params: MovieDetailsParams }>>()
-
   const {
+    id,
     title,
     release_date,
     vote_average,
@@ -24,8 +47,23 @@ const MovieDetailsPage = () => {
     backdrop_path,
     overview,
   } = movie
+
+  const dispatch = useAppDispatch()
+  const wishlist = useAppSelector(selectWishlist)
+
   const navigation = useNavigation()
+  const [isAddedToWishlist, setIsAddedToWishlist] = useState(
+    wishlist.some(movie => movie.id === id),
+  )
+
   const onHeaderBackPress = useCallback(() => navigation.goBack(), [])
+
+  const onWishlistPress = useCallback(() => {
+    if (isAddedToWishlist) dispatch(removeFromWishlist(movie.id))
+    else dispatch(addToWishlist(movie))
+
+    setIsAddedToWishlist(!isAddedToWishlist)
+  }, [isAddedToWishlist])
 
   const renderOverview = () => (
     <OverviewContainer>
@@ -48,9 +86,9 @@ const MovieDetailsPage = () => {
         ) : null}
       </TopInfoContainer>
       <WishlistButton
-        onPress={() => {}}
-        icon={'bookmarkOutline'}
-        tx="movieDetails.addWishList"
+        onPress={onWishlistPress}
+        icon={wishListButtonProps(isAddedToWishlist).icon}
+        tx={wishListButtonProps(isAddedToWishlist).tx}
       />
     </InfoColumn>
   )

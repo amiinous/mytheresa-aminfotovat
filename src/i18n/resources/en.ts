@@ -7,5 +7,6 @@ export default {
     releaseDate: 'Release Date:',
     rate: 'Rate:',
     addWishList: 'Wishlist',
+    addedToWishlist: 'Added!',
   },
 }

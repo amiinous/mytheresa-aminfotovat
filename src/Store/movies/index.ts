@@ -1,4 +1,4 @@
-import { createAsyncThunk, createReducer } from '@reduxjs/toolkit'
+import { createAction, createAsyncThunk, createReducer } from '@reduxjs/toolkit'
 import api from '@/Services/HttpClient'
 import { RootState } from '..'
 
@@ -6,6 +6,7 @@ type CategorizedMovieList = Record<string, Movie[]>
 
 interface MoviesState {
   data: CategorizedMovieList
+  wishlist: Movie[]
   status: NetworkStatus
 }
 
@@ -16,7 +17,11 @@ interface GetMoviesResult {
   total_pages: number
 }
 
-const initialState = { data: {}, status: 'fulfilled' } as MoviesState
+const initialState = {
+  data: {},
+  wishlist: [],
+  status: 'fulfilled',
+} as MoviesState
 
 /**
  * Actions
@@ -51,6 +56,11 @@ export const getMoviesByGenres = createAsyncThunk<
   return categorizedMovies
 })
 
+export const addToWishlist = createAction<Movie>('Movie/addToWishlist')
+export const removeFromWishlist = createAction<number>(
+  'Movie/removeFromWishlist',
+)
+
 /**
  * Selectors
  */
@@ -58,6 +68,8 @@ export const getMoviesByGenres = createAsyncThunk<
 export const selectGetMoviesStatus = (state: RootState) => state.movies.status
 
 export const selectMovies = (state: RootState) => state.movies.data
+
+export const selectWishlist = (state: RootState) => state.movies.wishlist
 
 /**
  * Reducer
@@ -73,5 +85,14 @@ export default createReducer(initialState, builder => {
   })
   builder.addCase(getMoviesByGenres.rejected, state => {
     state.status = 'error'
+  })
+
+  builder.addCase(addToWishlist, (state, { payload: movie }) => {
+    if (!state.wishlist.some(_movie => _movie.id === movie.id))
+      state.wishlist.push(movie)
+  })
+
+  builder.addCase(removeFromWishlist, (state, { payload: movieId }) => {
+    state.wishlist = state.wishlist.filter(movie => movie.id !== movieId)
   })
 })
