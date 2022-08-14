@@ -36,20 +36,10 @@ export default function Header(props: Props) {
       ) : null}
 
       {onRightIconPress && rightIcon ? (
-        <RightIcon
-          name={rightIcon}
-          onPress={onRightIconPress}
-          size={24}
-          color={white}
-        />
+        <RightIcon name={rightIcon} onPress={onRightIconPress} size={24} />
       ) : null}
       {onLeftIconPress && leftIcon ? (
-        <LeftIcon
-          name={leftIcon}
-          onPress={onLeftIconPress}
-          size={30}
-          color={white}
-        />
+        <LeftIcon name={leftIcon} onPress={onLeftIconPress} size={30} />
       ) : null}
     </Container>
   )
@@ -72,9 +62,9 @@ const TitleContainer = styled.View`
 
 const RightIcon = styled(Icon)`
   position: absolute;
-  right: 8;
+  right: 8px;
 `
 const LeftIcon = styled(Icon)`
   position: absolute;
-  left: 8;
+  left: 8px;
 `

@@ -1,22 +1,15 @@
-/**
- * Used to navigating without the navigation prop
- * @see https://reactnavigation.org/docs/navigating-without-navigation-prop/
- *
- * You can add other navigation functions that you need and export them
- */
+import { AppScreenNames, RootStackParamList } from '@/Types/NavigationTypes'
 import {
   CommonActions,
   createNavigationContainerRef,
 } from '@react-navigation/native'
 
-type RootStackParamList = {
-  Startup: undefined
-  Home: undefined
-}
-
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
 
-export function navigate(name: keyof RootStackParamList, params: any) {
+export function navigate<K extends AppScreenNames>(
+  name: K,
+  params: RootStackParamList[K],
+) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name, params)
   }

@@ -16,6 +16,11 @@ const _presets = {
     ...BASE,
     fontSize: 12,
   },
+  headingTwo: {
+    ...BASE,
+    fontSize: 16,
+    fontWeight: '800',
+  },
   heading: {
     ...BASE,
     fontSize: 20,

@@ -1,9 +1,10 @@
 import styled from 'styled-components/native'
-import React from 'react'
+import React, { useCallback } from 'react'
 import MYImage from '@/Components/UIKit/Image/MYImage'
 import { Dimensions, StyleSheet } from 'react-native'
 import Variables from '@/Theme/Variables'
 import MYTouchableOpacity from '@/Components/UIKit/MYTouchableOpacity'
+import { navigate } from '@/Navigator/utils'
 const { MARGINS } = Variables
 const { dark } = Variables.Colors
 
@@ -13,12 +14,13 @@ const CARD_WIDTH =
   (SCREEN_WIDTH - 2 * MARGINS.HORIZONTAL - 2 * INTER_CARD_MARGIN) / 2.5
 
 interface Props {
-  movie?: Movie
+  movie: Movie
 }
 
 const MovieTile = ({ movie }: Props) => {
+  const onPress = useCallback(() => navigate('MovieDetails', { movie }), [])
   return (
-    <Container style={styles.cardShadow}>
+    <Container onPress={onPress} style={styles.cardShadow}>
       <PosterImage source={{ uri: movie?.poster_path }} />
     </Container>
   )

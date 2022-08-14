@@ -7,6 +7,7 @@ const Colors = {
 
 const MARGINS = {
   HORIZONTAL: 20,
+  VERTICAL: 20,
 }
 
 export default {

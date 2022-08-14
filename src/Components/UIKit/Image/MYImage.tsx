@@ -1,6 +1,6 @@
 import Variables from '@/Theme/Variables'
-import React, { Fragment, useCallback, useState } from 'react'
-import { Image, ImageProps } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { ImageProps } from 'react-native'
 import styled from 'styled-components/native'
 
 const { dark } = Variables.Colors
@@ -13,10 +13,14 @@ const MYImage = (props: Props) => {
   )
   const onLoad = useCallback(() => setStatus(false), [])
   return (
-    <Fragment>
-      {shouldShowPlaceHolder ? <Placeholder style={props.style} /> : null}
-      <Image onLoad={onLoad} {...props} />
-    </Fragment>
+    <Container style={props.style}>
+      {shouldShowPlaceHolder ? (
+        <Placeholder
+          style={[props.style, { width: undefined, height: undefined }]}
+        />
+      ) : null}
+      <Image onLoad={onLoad} {...props} style={[props.style, { flex: 1 }]} />
+    </Container>
   )
 }
 
@@ -28,5 +32,8 @@ const Placeholder = styled.View`
   bottom: 0;
   background-color: ${dark};
 `
+
+const Container = styled.View``
+const Image = styled.Image``
 
 export default MYImage

@@ -39,7 +39,11 @@ export const getMoviesByGenres = createAsyncThunk<
   resultsArray.map((result, index) => {
     categorizedMovies[`${genres[index].name}`] = result.data.results.map(
       movie => {
-        return { ...movie, poster_path: baseUrl + movie.poster_path }
+        return {
+          ...movie,
+          poster_path: baseUrl + movie.poster_path,
+          backdrop_path: baseUrl + movie.backdrop_path,
+        }
       },
     )
   })

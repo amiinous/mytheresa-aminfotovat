@@ -17,7 +17,7 @@ interface Props extends ViewProps {
   leftIcon?: IconKeys
   onRightIconPress?: () => void
   rightIcon?: IconKeys
-  status: NetworkStatus
+  status?: NetworkStatus
   showDisplayMode?: boolean
 }
 
@@ -27,7 +27,7 @@ const ScreenContainer = ({
   leftIcon,
   onLeftIconPress,
   children,
-  status,
+  status = 'fulfilled',
   onRightIconPress,
   rightIcon,
 }: Props) => {
