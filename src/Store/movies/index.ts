@@ -36,7 +36,7 @@ export const getMoviesByGenres = createAsyncThunk<
       api.get<GetMoviesResult>(`discover/movie?with_genres=${genre.id}`),
     ),
   )
-  console.log('ff ', resultsArray)
+
   const categorizedMovies = {} as CategorizedMovieList
   const secureBaseUrl = getState().config.secure_base_url
   const posterSizes = getState().config.poster_sizes
