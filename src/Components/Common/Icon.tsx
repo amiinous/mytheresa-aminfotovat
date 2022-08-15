@@ -24,10 +24,7 @@ interface IconType {
 const Icon = ({ name, size = 24, color = dark, style, onPress }: IconType) => {
   const defaultStyle = { height: size, width: size, tintColor: color }
   const content = (
-    <MYImage
-      source={Image.resolveAssetSource(iconMap[name])}
-      style={[defaultStyle, style]}
-    />
+    <MYImage source={iconMap[name]} style={[defaultStyle, style]} />
   )
 
   return !onPress ? (
