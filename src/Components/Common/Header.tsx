@@ -17,7 +17,7 @@ interface Props {
   renderRightWidget?: () => JSX.Element
 }
 
-export default function Header(props: Props) {
+function Header(props: Props) {
   const {
     titleTx,
     title,
@@ -49,6 +49,8 @@ export default function Header(props: Props) {
     </Container>
   )
 }
+
+export default React.memo(Header)
 
 const Container = styled.View`
   padding-vertical: 16px;
