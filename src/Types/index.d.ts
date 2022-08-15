@@ -1,5 +1,7 @@
 type NetworkStatus = 'fulfilled' | 'loading' | 'error'
 
+type MainCategory = 'Action' | 'Horror' | 'Animation'
+
 interface Movie {
   id: number
   title: string
@@ -9,9 +11,10 @@ interface Movie {
   release_date?: string
   vote_average?: number
   vote_count?: number
+  main_category: MainCategory
 }
 
 interface Genre {
   id: number
-  name: string
+  name: MainCategory
 }

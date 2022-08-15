@@ -49,6 +49,7 @@ export const getMoviesByGenres = createAsyncThunk<
           ...movie,
           poster_path: baseUrl + movie.poster_path,
           backdrop_path: baseUrl + movie.backdrop_path,
+          main_category: genres[index].name,
         }
       },
     )

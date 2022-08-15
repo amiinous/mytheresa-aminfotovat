@@ -17,8 +17,15 @@ import {
 import { IconKeys } from '@/Components/Common/Icon'
 import { TxKeyPath } from '@/i18n'
 import ToastService from '@/Components/Toast/ToastService'
+import { TextPresets } from '@/Components/UIKit/Text/MYText.presets'
 
 const { MARGINS } = Variables
+
+interface Theme {
+  preset: TextPresets
+  buttonIcon: IconKeys
+  buttonTx: TxKeyPath
+}
 
 function wishListButtonProps(isAddedToWishList: boolean): {
   icon: IconKeys
@@ -35,6 +42,39 @@ function wishListButtonProps(isAddedToWishList: boolean): {
       }
 }
 
+function getPageTheme(
+  category: MainCategory,
+  isAddedToWishlist: boolean,
+): Theme {
+  let theme: { preset: TextPresets; buttonIcon: IconKeys }
+  switch (category) {
+    case 'Action':
+      theme = {
+        preset: 'action',
+        buttonIcon: isAddedToWishlist ? 'bookmarkFilled' : 'bookmarkOutline',
+      }
+      break
+    case 'Animation':
+      theme = {
+        preset: 'animation',
+        buttonIcon: isAddedToWishlist ? 'starFilled' : 'starOutline',
+      }
+      break
+    case 'Horror':
+      theme = {
+        preset: 'horror',
+        buttonIcon: isAddedToWishlist ? 'soulFilled' : 'soulOutline',
+      }
+  }
+
+  return {
+    ...theme,
+    buttonTx: isAddedToWishlist
+      ? 'movieDetails.addedToWishlist'
+      : 'movieDetails.addWishList',
+  }
+}
+
 const MovieDetailsPage = () => {
   const {
     params: { movie },
@@ -47,8 +87,8 @@ const MovieDetailsPage = () => {
     vote_count,
     backdrop_path,
     overview,
+    main_category,
   } = movie
-
   const dispatch = useAppDispatch()
   const wishlist = useAppSelector(selectWishlist)
 
@@ -56,16 +96,24 @@ const MovieDetailsPage = () => {
   const [isAddedToWishlist, setIsAddedToWishlist] = useState(
     wishlist.some(movie => movie.id === id),
   )
+  const { preset, buttonIcon, buttonTx } = getPageTheme(
+    main_category,
+    isAddedToWishlist,
+  )
 
   const onHeaderBackPress = useCallback(() => navigation.goBack(), [])
 
   const onWishlistPress = useCallback(() => {
     if (isAddedToWishlist) {
-      ToastService.showToast({ contentTx: 'movieDetails.removedFromWishlist' })
+      ToastService.showToast({
+        contentTx: 'movieDetails.removedFromWishlist',
+        preset,
+      })
       dispatch(removeFromWishlist(movie.id))
     } else {
       ToastService.showToast({
         contentTx: 'movieDetails.successfullyAddedToWishlist',
+        preset,
       })
       dispatch(addToWishlist(movie))
     }
@@ -75,8 +123,8 @@ const MovieDetailsPage = () => {
 
   const renderOverview = () => (
     <OverviewContainer>
-      <OverviewLabel tx="movieDetails.overview" preset="headingTwo" />
-      <OverviewText text={overview} numberOfLines={0} />
+      <OverviewLabel tx="movieDetails.overview" preset={preset} />
+      <OverviewText text={overview} numberOfLines={0} preset={preset} />
     </OverviewContainer>
   )
 
@@ -84,19 +132,25 @@ const MovieDetailsPage = () => {
     <InfoColumn>
       <TopInfoContainer>
         {release_date ? (
-          <KeyValueRow label="movieDetails.releaseDate" value={release_date} />
+          <ReleaseDate
+            label="movieDetails.releaseDate"
+            value={release_date}
+            preset={preset}
+          />
         ) : null}
         {vote_average ? (
-          <KeyValueRow
+          <Vote
             label="movieDetails.rate"
             value={`${vote_average} /10 (${vote_count ?? ''})`}
+            preset={preset}
           />
         ) : null}
       </TopInfoContainer>
       <WishlistButton
         onPress={onWishlistPress}
-        icon={wishListButtonProps(isAddedToWishlist).icon}
-        tx={wishListButtonProps(isAddedToWishlist).tx}
+        icon={buttonIcon}
+        tx={buttonTx}
+        preset={preset}
       />
     </InfoColumn>
   )
@@ -104,6 +158,7 @@ const MovieDetailsPage = () => {
   return (
     <ScreenContainer
       title={title}
+      preset={preset}
       leftIcon="back"
       onLeftIconPress={onHeaderBackPress}
     >
@@ -134,6 +189,12 @@ const Container = styled.ScrollView`
 const InfoColumn = styled.View`
   justify-content: space-between;
   flex: 1;
+`
+const ReleaseDate = styled(KeyValueRow)`
+  margin-bottom: 8px;
+`
+const Vote = styled(KeyValueRow)`
+  margin-bottom: 8px;
 `
 const TopInfoContainer = styled.View``
 const WishlistButton = styled(Button)``

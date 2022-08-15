@@ -7,6 +7,7 @@ import PendingState from '@/Components/Common/PendingState'
 import ErrorState from './ErrorState'
 import { IconKeys } from './Icon'
 import styled from 'styled-components/native'
+import { TextPresets } from '@/Components//UIKit/Text/MYText.presets'
 
 const { white } = Variables.Colors
 
@@ -20,6 +21,7 @@ interface Props extends ViewProps {
   status?: NetworkStatus
   showDisplayMode?: boolean
   retry?: () => void
+  preset?: TextPresets
 }
 
 const ScreenContainer = ({
@@ -32,6 +34,7 @@ const ScreenContainer = ({
   onRightIconPress,
   rightIcon,
   retry,
+  preset,
 }: Props) => {
   let content
   switch (status) {
@@ -54,6 +57,7 @@ const ScreenContainer = ({
         onLeftIconPress={onLeftIconPress}
         onRightIconPress={onRightIconPress}
         rightIcon={rightIcon}
+        preset={preset}
       />
       {content}
     </Container>

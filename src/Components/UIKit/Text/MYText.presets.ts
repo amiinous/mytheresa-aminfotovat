@@ -31,6 +31,20 @@ const _presets = {
     fontSize: 20,
     fontWeight: 'bold',
   },
+  horror: {
+    ...BASE,
+    fontFamily: 'Horror Corps Demo',
+    fontSize: 14,
+  },
+  animation: {
+    ...BASE,
+    fontFamily: 'Water Galon',
+  },
+  action: {
+    ...BASE,
+    fontFamily: 'Rebellion',
+    lineHeight: 20,
+  },
 }
 
 export const presets = StyleSheet.create<Record<string, TextStyle>>(_presets)

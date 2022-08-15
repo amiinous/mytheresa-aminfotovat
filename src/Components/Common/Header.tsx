@@ -4,6 +4,7 @@ import { TxKeyPath } from '@/i18n'
 import MYText from '@/Components/UIKit/Text/MYText'
 import Icon, { IconKeys } from '@/Components/Common/Icon'
 import Variables from '@/Theme/Variables'
+import { TextPresets } from '@/Components/UIKit/Text/MYText.presets'
 
 const { white, lightGray } = Variables.Colors
 
@@ -15,6 +16,7 @@ interface Props {
   rightIcon?: IconKeys
   onRightIconPress?: () => void
   renderRightWidget?: () => JSX.Element
+  preset?: TextPresets
 }
 
 function Header(props: Props) {
@@ -25,6 +27,7 @@ function Header(props: Props) {
     onLeftIconPress,
     rightIcon,
     onRightIconPress,
+    preset,
   } = props
 
   return (
@@ -35,7 +38,7 @@ function Header(props: Props) {
             text={title}
             tx={titleTx}
             limitLength={24}
-            preset={'hugeTitle'}
+            preset={preset ? preset : 'hugeTitle'}
           />
         </TitleContainer>
       ) : null}

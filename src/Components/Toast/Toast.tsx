@@ -6,6 +6,7 @@ import ToastService from './ToastService'
 import { WithTranslation, withTranslation } from 'react-i18next'
 import Variables from '@/Theme/Variables'
 import { TxKeyPath } from '@/i18n'
+import { TextPresets } from '@/Components/UIKit/Text/MYText.presets'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
@@ -21,6 +22,7 @@ export type ToastObject = {
   content?: string
   contentTx?: TxKeyPath
   duration?: number
+  preset?: TextPresets
 }
 
 export type ShowToast = (toast: ToastObject) => void
@@ -54,12 +56,14 @@ class Toast extends PureComponent<Props, State> {
     content,
     contentTx,
     duration = DURATION.DEFAULT_LENGTH,
+    preset,
   }: ToastObject) => {
     const toast = {
       bottom,
       content,
       contentTx,
       duration,
+      preset,
     }
 
     this.timer && clearTimeout(this.timer)
@@ -101,7 +105,7 @@ class Toast extends PureComponent<Props, State> {
     }
 
     const { t } = this.props
-    const { content, contentTx, bottom } = this.state.toast
+    const { content, contentTx, bottom, preset } = this.state.toast
     const text = contentTx ? t(contentTx) : content
 
     return (
@@ -114,6 +118,7 @@ class Toast extends PureComponent<Props, State> {
         <ErrorText
           text={text ? text : t('defaultToastMessage')}
           color={white}
+          preset={preset}
         />
       </Container>
     )

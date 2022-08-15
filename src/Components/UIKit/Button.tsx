@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 import MYTouchableOpacity from '@/Components/UIKit/MYTouchableOpacity'
 import MYText from '@/Components/UIKit/Text/MYText'
+import { TextPresets } from '@/Components/UIKit/Text/MYText.presets'
 import { TxKeyPath } from '@/i18n'
 import Variables from '@/Theme/Variables'
 import Icon, { IconKeys } from '@/Components/Common/Icon'
@@ -14,13 +15,14 @@ interface Props {
   tx?: TxKeyPath
   icon?: IconKeys
   style?: StyleProp<ViewStyle>
+  preset?: TextPresets
 }
 
-const Button = ({ onPress, tx, icon, style }: Props) => {
+const Button = ({ onPress, tx, icon, style, preset }: Props) => {
   return (
     <Container onPress={onPress} style={style}>
       {icon ? <Icon name={icon} style={{ marginRight: tx ? 8 : 0 }} /> : null}
-      {tx ? <MYText tx={tx} preset="headingTwo" /> : null}
+      {tx ? <MYText tx={tx} preset={preset ? preset : 'headingTwo'} /> : null}
     </Container>
   )
 }
