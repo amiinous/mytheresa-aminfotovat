@@ -17,15 +17,24 @@ import config from './configuration'
 export type RootState = ReturnType<typeof reducers>
 export type AppDispatch = typeof store.dispatch
 
-const persistConfig = {
+const persistConfigMovies = {
   key: 'movies',
   storage: AsyncStorage,
   whitelist: ['wishlist'],
 }
 
-const persistedMovies = persistReducer(persistConfig, movies)
+const persistConfig = {
+  key: 'config',
+  storage: AsyncStorage,
+}
 
-const reducers = combineReducers({ movies: persistedMovies, config })
+const persistedMovies = persistReducer(persistConfigMovies, movies)
+const persistedConfigs = persistReducer(persistConfig, config)
+
+const reducers = combineReducers({
+  movies: persistedMovies,
+  config: persistedConfigs,
+})
 
 const store = configureStore({
   reducer: reducers,
