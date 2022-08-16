@@ -1,5 +1,5 @@
 import { ViewProps } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import Variables from '@/Theme/Variables'
 import Header from './Header'
 import { TxKeyPath } from '@/i18n'
@@ -36,17 +36,20 @@ const ScreenContainer = ({
   retry,
   preset,
 }: Props) => {
-  let content
-  switch (status) {
-    case 'loading':
-      content = <PendingState />
-      break
-    case 'error':
-      content = <ErrorState retry={retry} />
-      break
-    default:
-      content = children
-  }
+  let content = children
+  const isLoadedSuccessfully = useRef(false)
+
+  if (!isLoadedSuccessfully.current)
+    switch (status) {
+      case 'loading':
+        content = <PendingState />
+        break
+      case 'error':
+        content = <ErrorState retry={retry} />
+        break
+      case 'fulfilled':
+        isLoadedSuccessfully.current = true
+    }
 
   return (
     <Container>

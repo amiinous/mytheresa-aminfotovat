@@ -1,7 +1,6 @@
-import { Text } from 'react-native'
+import { RefreshControl } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components/native'
-import Variables from '@/Theme/Variables'
 import ScreenContainer from '@/Components/Common/ScreenContainer'
 import { useAppDispatch, useAppSelector } from '@/Store/hooks'
 import {
@@ -28,6 +27,13 @@ const HomePage = () => {
 
   const onWishlistPress = useCallback(() => navigation.navigate('Wishlist'), [])
 
+  const renderRefreshControl = useCallback(
+    () => (
+      <RefreshControl refreshing={status === 'loading'} onRefresh={getData} />
+    ),
+    [status],
+  )
+
   return (
     <ScreenContainer
       status={status}
@@ -36,7 +42,7 @@ const HomePage = () => {
       rightIcon="bookmarkOutline"
       onRightIconPress={onWishlistPress}
     >
-      <MoviesScrollView>
+      <MoviesScrollView refreshControl={renderRefreshControl()}>
         {Object.keys(movies).map(genre => {
           return <MoviesRow key={genre} title={genre} movies={movies[genre]} />
         })}
