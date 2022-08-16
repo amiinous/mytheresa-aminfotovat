@@ -17,7 +17,7 @@ interface GetMoviesResult {
   total_pages: number
 }
 
-const initialState = {
+export const initialState = {
   data: {},
   wishlist: [],
   status: 'fulfilled',
