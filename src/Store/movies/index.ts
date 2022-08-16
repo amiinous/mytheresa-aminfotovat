@@ -20,7 +20,7 @@ interface GetMoviesResult {
 export const initialState = {
   data: {},
   wishlist: [],
-  status: 'fulfilled',
+  status: 'loading',
 } as MoviesState
 
 /**
