@@ -7,6 +7,8 @@ Run below commands:
 - `react-native run-android`
 - `react-native run-ios`
 
+You can download the `.app` and `.apk` files from this [link](https://drive.google.com/file/d/1fPYg2o5pZFCB61hkK5G4sTRoOoxu-Gl4/view?usp=sharing).
+
 ## Navigation
 
 For the navigation, native stack navigator of `react-navigation` is used. The main reason to do so is that I did not need fancy transitions, web support and customization over navigation between screens so I went for the native one as it has better performance.
